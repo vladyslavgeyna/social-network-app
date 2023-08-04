@@ -27,7 +27,6 @@ class App {
 	public async start() {
 		try {
 			await AppDataSource.initialize()
-
 			this.app.listen(this.port, () =>
 				console.log(`SERVER STARTED ON PORT ${this.port}`)
 			)

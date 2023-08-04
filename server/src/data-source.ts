@@ -7,7 +7,7 @@ export const AppDataSource = new DataSource({
 	username: 'postgres',
 	password: 'root',
 	database: 'social-network',
-	synchronize: true,
+	synchronize: false,
 	logging: false,
 	entities: [],
 	migrations: [],
