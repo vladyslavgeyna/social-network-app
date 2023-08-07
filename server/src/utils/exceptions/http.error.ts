@@ -1,3 +1,5 @@
+import HttpStatusCode from '@utils/enums/http-status-code'
+
 class HttpError extends Error {
 	public readonly status: number
 	public readonly errors: string[]
@@ -9,11 +11,14 @@ class HttpError extends Error {
 	}
 
 	static UnauthorizedError() {
-		return new HttpError(401, 'User is not authorized')
+		return new HttpError(
+			HttpStatusCode.UNAUTHORIZED_401,
+			'User is not authorized'
+		)
 	}
 
 	static BadRequest(message: string, errors: string[] = []) {
-		return new HttpError(400, message, errors)
+		return new HttpError(HttpStatusCode.BAD_REQUEST_400, message, errors)
 	}
 }
 

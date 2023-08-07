@@ -18,6 +18,7 @@ class App {
 	private initializeRoutes() {}
 
 	private initializeMiddlewares() {
+		this.app.use(express.static('./public/images'))
 		this.app.use(cors())
 		this.app.use(express.json())
 	}
