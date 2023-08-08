@@ -1,8 +1,10 @@
+import RegisterInputDto from '@resources/account/dtos/register-input.dto'
 import UserRole from '@utils/enums/user-role'
-import RegisterInputDto from '../../account/dtos/register/register-input.dto'
 import { User } from '../user.entity'
 
-export default class UserDto implements Omit<RegisterInputDto, 'password'> {
+export default class UserDto
+	implements Omit<RegisterInputDto, 'password' | 'passwordConfirm'>
+{
 	username: string
 	email: string
 	name: string

@@ -1,23 +1,29 @@
+import dotenv from 'dotenv'
 import nodemailer from 'nodemailer'
+
+dotenv.config()
 
 class EmailService {
 	private transporter
-
+	a = process.env
 	constructor() {
+		console.log(this.a)
+
 		this.transporter = nodemailer.createTransport({
-			host: process.env.SMTP_HOST,
+			service: 'gmail',
+			host: String(process.env.SMTP_HOST),
 			port: Number(process.env.SMTP_PORT),
-			secure: false,
+			secure: true,
 			auth: {
-				user: process.env.SMTP_USER,
-				pass: process.env.SMTP_PASSWORD
+				user: String(process.env.SMTP_USER),
+				pass: String(process.env.SMTP_PASSWORD)
 			}
 		})
 	}
 
 	async sendVerifyingEmail(emailTo: string, link: string) {
 		await this.transporter.sendMail({
-			from: process.env.SMTP_USER,
+			from: String(process.env.SMTP_USER),
 			to: emailTo,
 			subject: `Account verifying on ${process.env.API_URL}`,
 			text: '',

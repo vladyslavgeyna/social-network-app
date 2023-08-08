@@ -35,6 +35,6 @@ export class User {
 	})
 	role: UserRole
 
-	@Column({ nullable: true })
+	@Column({ type: 'varchar', nullable: true })
 	avatar: string | null
 }

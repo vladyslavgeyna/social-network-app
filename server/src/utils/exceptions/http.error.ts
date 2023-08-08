@@ -2,9 +2,9 @@ import HttpStatusCode from '@utils/enums/http-status-code'
 
 class HttpError extends Error {
 	public readonly status: number
-	public readonly errors: string[]
+	public readonly errors: any[]
 
-	constructor(status: number, message: string, errors: string[] = []) {
+	constructor(status: number, message: string, errors: any[] = []) {
 		super(message)
 		this.status = status
 		this.errors = errors
@@ -17,11 +17,11 @@ class HttpError extends Error {
 		)
 	}
 
-	static BadRequest(message: string, errors: string[] = []) {
+	static BadRequest(message: string, errors: any[] = []) {
 		return new HttpError(HttpStatusCode.BAD_REQUEST_400, message, errors)
 	}
 
-	static NotFound(message: string, errors: string[] = []) {
+	static NotFound(message: string, errors: any[] = []) {
 		return new HttpError(HttpStatusCode.NOT_FOUND_404, message, errors)
 	}
 }

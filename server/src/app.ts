@@ -1,6 +1,9 @@
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express, { Application } from 'express'
 import { AppDataSource } from './data-source'
+import errorMiddleware from './middlewares/error.middleware'
+import accountRouter from './resources/account/account.router'
 
 class App {
 	private port: number
@@ -15,15 +18,20 @@ class App {
 		this.initializeErrorHandling()
 	}
 
-	private initializeRoutes() {}
+	private initializeRoutes() {
+		this.app.use(`/${this.URI_PREFIX}/account`, accountRouter)
+	}
 
 	private initializeMiddlewares() {
 		this.app.use(express.static('./public/images'))
-		this.app.use(cors())
+		this.app.use(cookieParser())
 		this.app.use(express.json())
+		this.app.use(cors())
 	}
 
-	private initializeErrorHandling() {}
+	private initializeErrorHandling() {
+		this.app.use(errorMiddleware)
+	}
 
 	public async start() {
 		try {

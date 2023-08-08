@@ -45,11 +45,13 @@ class AccountService {
 		const hashedPassword = await bcrypt.hash(registerInputDto.password, 5)
 
 		const newUser = this.userRepository.create({
+			username: registerInputDto.username,
 			email: registerInputDto.email,
 			name: registerInputDto.name,
 			surname: registerInputDto.surname,
 			password: hashedPassword,
-			avatar: imageName
+			avatar: imageName,
+			isVerified: true
 		})
 
 		const createdUser = await this.userRepository.save(newUser)

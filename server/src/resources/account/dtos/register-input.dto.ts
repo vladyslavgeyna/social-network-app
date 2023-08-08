@@ -4,5 +4,6 @@ export default interface RegisterInputDto {
 	name: string
 	surname: string
 	password: string
+	passwordConfirm: string
 	avatar?: Express.Multer.File
 }

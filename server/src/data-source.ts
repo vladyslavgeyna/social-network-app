@@ -1,3 +1,5 @@
+import { Token } from '@resources/token/token.entity'
+import { User } from '@resources/user/user.entity'
 import { DataSource } from 'typeorm'
 
 export const AppDataSource = new DataSource({
@@ -9,7 +11,7 @@ export const AppDataSource = new DataSource({
 	database: 'social-network',
 	synchronize: true,
 	logging: false,
-	entities: [],
+	entities: [User, Token],
 	migrations: [],
 	subscribers: []
 })

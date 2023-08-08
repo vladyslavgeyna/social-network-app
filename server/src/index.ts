@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import 'module-alias/register'
 import 'reflect-metadata'
 import App from './app'
 
