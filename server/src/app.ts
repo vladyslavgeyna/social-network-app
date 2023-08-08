@@ -19,7 +19,11 @@ class App {
 	}
 
 	private initializeRoutes() {
-		this.app.use(`/${this.URI_PREFIX}/account`, accountRouter)
+		this.app.use(this.getRouteUri('account'), accountRouter)
+	}
+
+	private getRouteUri(resourceName: string) {
+		return `/${this.URI_PREFIX}/${resourceName}`
 	}
 
 	private initializeMiddlewares() {

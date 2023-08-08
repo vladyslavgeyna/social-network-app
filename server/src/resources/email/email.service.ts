@@ -5,10 +5,7 @@ dotenv.config()
 
 class EmailService {
 	private transporter
-	a = process.env
 	constructor() {
-		console.log(this.a)
-
 		this.transporter = nodemailer.createTransport({
 			service: 'gmail',
 			host: String(process.env.SMTP_HOST),

@@ -22,6 +22,8 @@ export default class UserDto
 		this.id = user.id
 		this.isVerified = user.isVerified
 		this.role = user.role
-		this.avatarPath = process.env.API_URL + `/images/${user.avatar}`
+		this.avatarPath = user.avatar
+			? process.env.API_URL + `/images/${user.avatar}`
+			: user.avatar
 	}
 }
