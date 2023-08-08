@@ -1,6 +1,7 @@
+import UserDto from '@resources/user/dtos/user.dto'
 import UserRole from '@utils/enums/user-role'
 
-export default interface TokenPayloadDto {
+export default class TokenPayloadDto {
 	/**
 	 * User's id
 	 */
@@ -25,4 +26,12 @@ export default interface TokenPayloadDto {
 	 * User's role
 	 */
 	role: UserRole
+
+	constructor(userDto: UserDto) {
+		this.id = userDto.id
+		this.email = userDto.email
+		this.username = userDto.username
+		this.isVerified = userDto.isVerified
+		this.role = userDto.role
+	}
 }

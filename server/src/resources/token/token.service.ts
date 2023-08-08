@@ -1,4 +1,5 @@
 import { AppDataSource } from '@/data-source'
+import HttpError from '@utils/exceptions/http.error'
 import jwt from 'jsonwebtoken'
 import { Repository } from 'typeorm'
 import TokenPayloadDto from './dtos/token-payload.dto'
@@ -52,6 +53,44 @@ class TokenService {
 		})
 		const newToken = await this.tokenRepository.save(token)
 		return newToken
+	}
+
+	async removeToken(refreshToken: string) {
+		const token = await this.tokenRepository.findOneBy({ refreshToken })
+
+		if (!token) {
+			throw HttpError.NotFound(
+				'Token by given refresh token was not found'
+			)
+		}
+
+		await this.tokenRepository.delete(refreshToken)
+	}
+
+	validateRefreshToken(token: string) {
+		try {
+			const userData = jwt.verify(
+				token,
+				String(process.env.JWT_REFRESH_SECRET)
+			)
+
+			return userData as TokenPayloadDto
+		} catch (error) {
+			return null
+		}
+	}
+
+	validateAccessToken(token: string) {
+		try {
+			const userData = jwt.verify(
+				token,
+				String(process.env.JWT_ACCESS_SECRET)
+			)
+
+			return userData
+		} catch (error) {
+			return null
+		}
 	}
 }
 

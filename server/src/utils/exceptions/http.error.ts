@@ -20,6 +20,10 @@ class HttpError extends Error {
 	static BadRequest(message: string, errors: string[] = []) {
 		return new HttpError(HttpStatusCode.BAD_REQUEST_400, message, errors)
 	}
+
+	static NotFound(message: string, errors: string[] = []) {
+		return new HttpError(HttpStatusCode.NOT_FOUND_404, message, errors)
+	}
 }
 
 export default HttpError
