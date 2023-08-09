@@ -29,7 +29,6 @@ class App {
 
 	private initializeMiddlewares() {
 		this.app.use(express.static(path.join(__dirname, '../public')))
-
 		this.app.use(cookieParser())
 		this.app.use(express.json())
 		this.app.use(cors())
