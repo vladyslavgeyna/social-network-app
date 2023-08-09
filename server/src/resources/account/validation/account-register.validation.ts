@@ -34,13 +34,13 @@ export const accountRegisterValidation = [
 		.trim()
 		.notEmpty()
 		.escape()
-		.isLength({ min: 5, max: 100 })
+		.isLength({ min: 2, max: 100 })
 		.withMessage(`Name length should be 5-100 characters`),
 	body('surname')
 		.trim()
 		.notEmpty()
 		.escape()
-		.isLength({ min: 5, max: 100 })
+		.isLength({ min: 2, max: 100 })
 		.withMessage(`Surname length should be 5-100 characters`),
 	body('password')
 		.trim()

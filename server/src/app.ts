@@ -1,6 +1,7 @@
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express, { Application } from 'express'
+import path from 'path'
 import { AppDataSource } from './data-source'
 import errorMiddleware from './middlewares/error.middleware'
 import accountRouter from './resources/account/account.router'
@@ -27,7 +28,8 @@ class App {
 	}
 
 	private initializeMiddlewares() {
-		this.app.use(express.static('./public/images'))
+		this.app.use(express.static(path.join(__dirname, '../public')))
+
 		this.app.use(cookieParser())
 		this.app.use(express.json())
 		this.app.use(cors())

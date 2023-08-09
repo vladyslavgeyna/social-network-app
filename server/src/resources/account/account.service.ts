@@ -22,7 +22,10 @@ class AccountService {
 		this.tokenRepository = AppDataSource.getRepository(Token)
 	}
 
-	async register(registerInputDto: RegisterInputDto): Promise<AuthOutputDto> {
+	async register(
+		registerInputDto: RegisterInputDto,
+		avatar?: Express.Multer.File
+	): Promise<AuthOutputDto> {
 		const candidate = await this.userRepository.findOne({
 			where: [
 				{ email: registerInputDto.email },
@@ -38,8 +41,8 @@ class AccountService {
 
 		let imageName: string | null = null
 
-		if (registerInputDto.avatar) {
-			imageName = await imageService.save(registerInputDto.avatar)
+		if (avatar) {
+			imageName = await imageService.save(avatar)
 		}
 
 		const hashedPassword = await bcrypt.hash(registerInputDto.password, 5)
@@ -50,8 +53,7 @@ class AccountService {
 			name: registerInputDto.name,
 			surname: registerInputDto.surname,
 			password: hashedPassword,
-			avatar: imageName,
-			isVerified: true
+			avatar: imageName
 		})
 
 		const createdUser = await this.userRepository.save(newUser)

@@ -20,7 +20,7 @@ class AccountController {
 				)
 			}
 
-			const userData = await accountService.register(req.body)
+			const userData = await accountService.register(req.body, req.file)
 
 			res.cookie('refreshToken', userData.refreshToken, {
 				httpOnly: true,
