@@ -23,31 +23,27 @@ class ImageService {
 	 * @returns Created image name
 	 */
 	async save(file: Express.Multer.File) {
-		try {
-			const { buffer } = file
-			const newFileName = uuid.v4() + this.IMAGES_FILE_EXTENSION
+		const { buffer } = file
+		const newFileName = uuid.v4() + this.IMAGES_FILE_EXTENSION
 
-			const outputDirectory = path.join(process.cwd(), 'public', 'images')
+		const outputDirectory = path.join(process.cwd(), 'public', 'images')
 
-			if (!this.directoryExists(outputDirectory)) {
-				fs.mkdir(outputDirectory, { recursive: true })
-			}
-
-			await sharp(buffer)
-				.resize({
-					width: this.MAX_SIZE_TO_RESIZE,
-					height: this.MAX_SIZE_TO_RESIZE,
-					fit: 'inside',
-					withoutEnlargement: true
-				})
-				.toFormat('jpeg')
-				.jpeg({ quality: this.COMPRESSION_QUALITY })
-				.toFile(path.join(outputDirectory, newFileName))
-
-			return newFileName
-		} catch (error) {
-			throw error
+		if (!this.directoryExists(outputDirectory)) {
+			fs.mkdir(outputDirectory, { recursive: true })
 		}
+
+		await sharp(buffer)
+			.resize({
+				width: this.MAX_SIZE_TO_RESIZE,
+				height: this.MAX_SIZE_TO_RESIZE,
+				fit: 'inside',
+				withoutEnlargement: true
+			})
+			.toFormat('jpeg')
+			.jpeg({ quality: this.COMPRESSION_QUALITY })
+			.toFile(path.join(outputDirectory, newFileName))
+
+		return newFileName
 	}
 }
 
